@@ -5,7 +5,7 @@ export const RedirectURL = async (req, res) => {
     try {
         const url = await URLs.find({shortId: shortId});
         const element = url[0];
-        res.redirect(element.longUrl);
+        res.redirect(element.longURL);
     }catch (err) {
         res.status(500).json({
             ok :false,
