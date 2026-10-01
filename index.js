@@ -3,13 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./Utils/mongodb.js";
 import URLRoute from "./router/urls.js";
-import dns from "node:dns/promises"
+import dns from "node:dns/promises";
 
-dns.setServers(["1.1.1.1" , "8.8.8.8"])
-
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 dotenv.config();
-
 
 const app = express();
 
@@ -17,9 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
-app.use("/",URLRoute);
+app.use("/", URLRoute);
 
-
-app.listen(5050, () => {
+// Local testing ke liye check, Vercel par ye skip ho jaye ga
+if (process.env.NODE_ENV !== "production") {
+  app.listen(5050, () => {
     console.log(`Server is running on port 5050`);
-});
+  });
+}
+
+// ES Modules ke mutabiq export
+export default app;
